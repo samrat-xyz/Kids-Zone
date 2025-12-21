@@ -1,4 +1,3 @@
-# Hero Kidzz - Project Assets
 <img src="assets/hero.png">
 ## Overview
 
