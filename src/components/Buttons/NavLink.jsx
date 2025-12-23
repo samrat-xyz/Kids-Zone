@@ -1,14 +1,20 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 function NavLink({ href, children }) {
   const pathname = usePathname();
+
+  const isActive =
+    pathname === href ||
+    (href !== "/" && pathname.startsWith(href));
+
   return (
     <Link
-      className={`${pathname.startsWith(href) && "text-primary"} font-medium`}
       href={href}
+      className={`font-medium ${
+        isActive ? "text-primary" : "text-gray-500"
+      }`}
     >
       {children}
     </Link>
