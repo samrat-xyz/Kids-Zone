@@ -1,11 +1,10 @@
+import { collections, dbConnect } from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
-import { collections, dbConnect,  } from "@/lib/dbConnect";
-
 export async function GET(req, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
-    // Validate ObjectId
+    // validate Mongo ObjectId
     if (!ObjectId.isValid(id)) {
       return Response.json(
         { success: false, message: "Invalid product ID" },
@@ -29,16 +28,16 @@ export async function GET(req, { params }) {
     return Response.json(
       {
         success: true,
-        product,
+        product: {
+          ...product,
+          _id: product._id.toString(),
+        },
       },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      {
-        success: false,
-        message: "Failed to fetch product",
-      },
+      { success: false, message: "Failed to fetch product" },
       { status: 500 }
     );
   }
