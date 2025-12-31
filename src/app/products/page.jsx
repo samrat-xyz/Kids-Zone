@@ -2,6 +2,11 @@
 import ProductCard from "@/components/Cards/ProductCard";
 import React from "react";
 
+export const metadata = {
+  title:"All Products",
+  description: "All kids zone products",
+};
+
 const getProducts = async () => {
   const res = await fetch("http://localhost:3000/api/products");
   const data = await res.json()
