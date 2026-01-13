@@ -1,9 +1,9 @@
+import Cart from "@/components/Buttons/Cart";
 import Image from "next/image";
 
 const getProduct = async (id) => {
-
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`,
+    `${process.env.NEXT_PUBLIC_BASE_UR ?? "http://localhost:3000"}/api/products/${id}`,
     { cache: "no-store" }
   );
 
@@ -15,7 +15,7 @@ const getProduct = async (id) => {
 };
 
 export default async function ProductDetails({ params }) {
-  const { id } = await params;
+  const { id } = await params; 
   const data = await getProduct(id);
 
   if (!data.success) {
@@ -55,8 +55,12 @@ export default async function ProductDetails({ params }) {
             <span className="text-yellow-500 font-semibold">
               ⭐ {product.ratings}
             </span>
-            <span className="text-gray-400">({product.reviews} reviews)</span>
-            <span className="text-sm text-gray-400">{product.sold} sold</span>
+            <span className="text-gray-400">
+              ({product.reviews} reviews)
+            </span>
+            <span className="text-sm text-gray-400">
+              {product.sold} sold
+            </span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -71,7 +75,7 @@ export default async function ProductDetails({ params }) {
           </div>
 
           <div className="flex gap-4 mt-4">
-            <button className="btn btn-primary">Add to Cart</button>
+            <Cart product={product} />
             <button className="btn btn-outline">Buy Now</button>
           </div>
         </div>
